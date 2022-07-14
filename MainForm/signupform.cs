@@ -22,6 +22,7 @@ namespace signupform
             this.textBoxpass.Size = new Size(this.textBoxpass.Size.Width, 46);
         }
         public static Regex regex;
+        db DB = new db();
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -38,20 +39,29 @@ namespace signupform
                 tmp++;
                 MessageBox.Show("Помилка введення паролю\nМає бути щонайменше один символ верхнього регістру, один нижнього і цифра", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            db DB = new db();
-            MySqlCommand com = new MySqlCommand("INSERT INTO user (id, login, password) VALUES (NULL, @login, @password);", DB.getconnection());
-            com.Parameters.AddWithValue("login", textBoxlogin.Text);
-            com.Parameters.AddWithValue("password", textBoxpass.Text);
             DB.open();
-            if (tmp == 0)
-                if (Convert.ToInt32(com.ExecuteNonQuery()) != 0)
-                {
-                    MessageBox.Show("Реєстрація пройшла успішно!", "Успіх!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Hide();
-                    MainForm.StartForm f = new MainForm.StartForm();
-                    f.Show();
-                }
-            DB.close();
+            MySqlCommand command = new MySqlCommand("select id from user where login= @uL", DB.getconnection());
+            command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = textBoxlogin.Text;
+            int id = Convert.ToInt32(command.ExecuteScalar());
+            if (id == 0)
+            {
+                MySqlCommand com = new MySqlCommand("INSERT INTO user (id, login, password) VALUES (NULL, @login, @password);", DB.getconnection());
+                com.Parameters.AddWithValue("login", textBoxlogin.Text);
+                com.Parameters.AddWithValue("password", textBoxpass.Text);
+                if (tmp == 0)
+                    if (Convert.ToInt32(com.ExecuteNonQuery()) != 0)
+                    {
+                        MessageBox.Show("Реєстрація пройшла успішно!", "Успіх!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DB.close();
+                        this.Hide();
+                        MainForm.StartForm f = new MainForm.StartForm();
+                        f.Show();
+                    }
+            }
+            else
+            {
+                MessageBox.Show("Даний логін вже існує", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void signupform_FormClosed(object sender, FormClosedEventArgs e)
