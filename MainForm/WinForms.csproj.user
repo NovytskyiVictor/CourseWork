@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="AdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PorivForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="signinform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="signupform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Videocardinfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
