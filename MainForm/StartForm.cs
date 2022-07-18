@@ -36,7 +36,7 @@ namespace MainForm
         }
         public void ReadRow(DataGridView dgv, IDataRecord record)
         {
-            dgv.Rows.Add(record.GetByte(0), record.GetString(1), record.GetByte(2), record.GetString(3), record.GetInt32(4), record.GetString(5), record.GetInt32(6), record.GetInt32(7), record.GetInt32(8), record.GetDateTime(9).Date.ToString("d"), record.GetInt32(10), Rowstate.ModifiedNew); ;
+            dgv.Rows.Add(record.GetByte(0), record.GetString(1), record.GetByte(2), record.GetString(3), record.GetInt32(4), record.GetString(5), record.GetInt32(6), record.GetInt32(7), record.GetInt32(8), record.GetDateTime(9).Date.ToString("d"), record.GetInt32(10), Rowstatus.New); ;
         }
         private void Refreshdgv(DataGridView dgv)
         {

@@ -12,9 +12,9 @@ using MySql.Data.MySqlClient;
 
 namespace MainForm
 {
-    enum Rowstate{
+    enum Rowstatus{
         Modified,
-        ModifiedNew,
+        New,
         Deleted
     }
 
@@ -47,7 +47,7 @@ namespace MainForm
 
         private void ReadRow(DataGridView dgv, IDataRecord record)
         {
-            dgv.Rows.Add(record.GetByte(0), record.GetString(1), record.GetByte(2), record.GetString(3), record.GetInt32(4), record.GetString(5), record.GetInt32(6), record.GetInt32(7), record.GetInt32(8), record.GetDateTime(9).Date.ToString("d"), record.GetInt32(10), record.GetString(11), record.GetString(12), Rowstate.ModifiedNew); ;
+            dgv.Rows.Add(record.GetByte(0), record.GetString(1), record.GetByte(2), record.GetString(3), record.GetInt32(4), record.GetString(5), record.GetInt32(6), record.GetInt32(7), record.GetInt32(8), record.GetDateTime(9).Date.ToString("d"), record.GetInt32(10), record.GetString(11), record.GetString(12), Rowstatus.New); ;
         }
         private void Refreshdgv(DataGridView dgv)
         {
@@ -101,7 +101,7 @@ namespace MainForm
             dgv.Rows[index].SetValues(Videocard.id, Videocard.name, Videocard.techproc, Videocard.typememory, Videocard.memory, Videocard.memorybus, Videocard.core, Videocard.shaderblock, Videocard.energy, Videocard.date, Videocard.price);
             dgv.Rows[index].Cells[12].Value = Videocard.link;
             dgv.Rows[index].Cells[11].Value = Videocard.info;
-            dgv.Rows[index].Cells[13].Value = Rowstate.Modified;
+            dgv.Rows[index].Cells[13].Value = Rowstatus.Modified;
             f.Close();
         }
         private void button_add_Click(object sender, EventArgs e)
@@ -142,10 +142,10 @@ namespace MainForm
             dgv.Rows[index].Visible = false;
             if (dgv.Rows[index].Cells[0].Value.ToString() == String.Empty)
             {
-                dgv.Rows[index].Cells[13].Value = Rowstate.Deleted;
+                dgv.Rows[index].Cells[13].Value = Rowstatus.Deleted;
                 return;
             }
-            dgv.Rows[index].Cells[13].Value = Rowstate.Deleted;
+            dgv.Rows[index].Cells[13].Value = Rowstatus.Deleted;
         }
 
         private void update()
@@ -153,17 +153,17 @@ namespace MainForm
             DB.open();
             for (int i = 0; i < dgv.Rows.Count; i++)
             {
-                var rowstate = (Rowstate)dgv.Rows[i].Cells[13].Value;
-                if (rowstate == Rowstate.ModifiedNew)
+                var rowstatus = (Rowstatus)dgv.Rows[i].Cells[13].Value;
+                if (rowstatus == Rowstatus.New)
                     continue;
-                if (rowstate == Rowstate.Deleted)
+                if (rowstatus == Rowstatus.Deleted)
                 {
                     var id = Convert.ToInt32(dgv.Rows[i].Cells[0].Value);
                     var deletequerry = $"DELETE FROM videocard WHERE videocard.id = {id}";
                     MySqlCommand com = new MySqlCommand(deletequerry, DB.getconnection());
                     com.ExecuteNonQuery();
                 }
-                if (rowstate == Rowstate.Modified)
+                if (rowstatus == Rowstatus.Modified)
                 {
                     string changequerry = $"update videocard set name = '{Videocard.name}', techproc = '{Videocard.techproc}', typememory= '{Videocard.typememory}', memory= '{Videocard.memory}', memorybus = '{Videocard.memorybus}', core = '{Videocard.core}', shaderblock = '{Videocard.shaderblock}', energy = '{Videocard.energy}', date = '{Videocard.date}', price= '{Videocard.price}', img= @img, info= '{Videocard.info}' where id = '{Videocard.id}'";
                     MySqlCommand com = new MySqlCommand(changequerry, DB.getconnection());

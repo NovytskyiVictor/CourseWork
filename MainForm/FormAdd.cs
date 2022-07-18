@@ -43,7 +43,7 @@ namespace WinForms
                 Videocard.shaderblock = shaderblock;
                 Videocard.energy = energy;
                 Videocard.price = price;
-                var addQuerry = $"insert into videocard (id, name, techproc, typememory, memory, memorybus, core, shaderblock, energy, date, price, info, img) values (NULL,'{Videocard.name}','{Videocard.techproc}','{Videocard.typememory}','{Videocard.memory}','{Videocard.memorybus}','{Videocard.core}','{Videocard.shaderblock}','{Videocard.energy}','{Videocard.date}','{Videocard.price}', '{Videocard.info}', @img)";
+                var addQuerry = $"insert into videocard (   , name, techproc, typememory, memory, memorybus, core, shaderblock, energy, date, price, info, img) values (NULL,'{Videocard.name}','{Videocard.techproc}','{Videocard.typememory}','{Videocard.memory}','{Videocard.memorybus}','{Videocard.core}','{Videocard.shaderblock}','{Videocard.energy}','{Videocard.date}','{Videocard.price}', '{Videocard.info}', @img)";
                 MySqlCommand com = new MySqlCommand(addQuerry, DB.getconnection());
                 com.Parameters.AddWithValue("img", Videocard.link);
                 com.ExecuteNonQuery();

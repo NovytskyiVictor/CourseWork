@@ -14,10 +14,9 @@ namespace MainForm
 {
     public partial class UserForm : Form
     {
-
-        db DB = new db();
         public string tmp;
         int selectedrow;
+        db DB = new db();
         public UserForm()
         {
             InitializeComponent();
@@ -36,16 +35,16 @@ namespace MainForm
             dgv.Columns.Add("date", "Дата випуску");
             dgv.Columns.Add("price", "Вартість, $");
             dgv.Columns.Add("status", String.Empty);
-            DataGridViewCheckBoxColumn dgvcheckbox = new DataGridViewCheckBoxColumn();
-            dgvcheckbox.ValueType = typeof(bool);
-            dgvcheckbox.Name = "check";
-            dgvcheckbox.HeaderText = "Порівняння";
-            dgvcheckbox.ReadOnly = false;
-            dgv.Columns.Add(dgvcheckbox);
+                DataGridViewCheckBoxColumn dgvcheckbox = new DataGridViewCheckBoxColumn();
+                dgvcheckbox.ValueType = typeof(bool);
+                dgvcheckbox.Name = "check";
+                dgvcheckbox.HeaderText = "Порівняння";
+                dgvcheckbox.ReadOnly = false;
+                dgv.Columns.Add(dgvcheckbox);
         }
         public void ReadRow(DataGridView dgv, IDataRecord record)
         {
-            dgv.Rows.Add(record.GetByte(0), record.GetString(1), record.GetByte(2), record.GetString(3), record.GetInt32(4), record.GetString(5), record.GetInt32(6), record.GetInt32(7), record.GetInt32(8), record.GetDateTime(9).Date.ToString("d"), record.GetInt32(10), Rowstate.ModifiedNew); ;
+            dgv.Rows.Add(record.GetByte(0), record.GetString(1), record.GetByte(2), record.GetString(3), record.GetInt32(4), record.GetString(5), record.GetInt32(6), record.GetInt32(7), record.GetInt32(8), record.GetDateTime(9).Date.ToString("d"), record.GetInt32(10), Rowstatus.New); ;
         }
         private void Refreshdgv(DataGridView dgv)
         {

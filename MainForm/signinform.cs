@@ -15,6 +15,7 @@ namespace signinform
 {
     public partial class signinform : Form
     {
+        db DB = new db();
         public signinform()
         {
             InitializeComponent();
@@ -27,7 +28,6 @@ namespace signinform
         {
             string login = textBoxlogin.Text;
             string pass = textBoxpass.Text;
-            db DB = new db();
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             MySqlCommand com = new MySqlCommand("SELECT * FROM user WHERE login=@uL AND password=@uP", DB.getconnection());

@@ -64,6 +64,7 @@ namespace WinForms
                 i++;
             }
             styledatagridview();
+            dgv.Columns["id"].Visible = false;
             dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv.RowHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
